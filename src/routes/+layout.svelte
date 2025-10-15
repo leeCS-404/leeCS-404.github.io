@@ -1,3 +1,10 @@
+<!-- svelte-ignore script_context_deprecated -->
+<!-- prerender all routes-->
+
+<script module>
+  export const prerender = true;
+</script>
+
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 
