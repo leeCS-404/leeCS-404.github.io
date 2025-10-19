@@ -8,6 +8,6 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://example.com',
+    site: 'https://leeCS-404.github.io',
     integrations: [mdx(), sitemap(), svelte()],
 });
