@@ -5,17 +5,32 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+  --background-body: #fff;
+  --text-main: #36393b;
+  --text-secondary: #6b6f72;
+  --primary-color: #548e9b;
+  --font-family-serif: Merriweather, serif;
+  --font-family-sans: 'Fira Sans', sans-serif;
 }
+
+:root.theme-dark {
+  --background-body: #202122;
+  --text-main: #fff;
+  --text-secondary: #ccc;
+  --primary-color: #548e9b;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+@supports (scrollbar-gutter: stable) {
+  html {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+}
+
 @font-face {
 	font-family: "Atkinson";
 	src: url("/fonts/atkinson-regular.woff") format("woff");
@@ -31,18 +46,19 @@
 	font-display: swap;
 }
 body {
-	font-family: "Atkinson", sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
+  font-family: "Atkinson", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background: var(--background-body, white);
+  color: var(--text-main, rgb(var(--gray-dark)));
+  transition: background 0.3s ease, color 0.3s ease;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 20px;
+  line-height: 1.7;
 }
+
 main {
 	width: 720px;
 	max-width: calc(100% - 2em);
@@ -55,10 +71,11 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-main, rgb(var(--black)));
+  line-height: 1.2;
 }
+
 h1 {
 	font-size: 3.052em;
 }
@@ -107,9 +124,18 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	background-color: var(--gray-light, #e5e9f0);
+  	color: var(--text-main, #000);
 	border-radius: 2px;
 }
+
+.theme-dark code {
+  background-color: #2e2e2e;
+  color: var(--text-main, #fff);
+  border-radius: 2px;
+  padding: 2px 5px;
+}
+
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
@@ -122,6 +148,7 @@ blockquote {
 	padding: 0 0 0 20px;
 	margin: 0px;
 	font-size: 1.333em;
+	color: var(--text-secondary, rgb(var(--gray-dark)));
 }
 hr {
 	border: none;
@@ -153,3 +180,4 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
