@@ -9,12 +9,16 @@ const { current = '' } = Astro.props;
 <header>
 	<nav>
 		<div class="left-group">
+			<button class="hamburger" id="hamburger-button" aria-label="Toggle menu">
+				☰
+			</button>
 			<h2><a href="/">{SITE_TITLE}</a></h2>
-			<div class="internal-links">
+			<div class="internal-links" id="navLinks">
 				<HeaderLink href="/">Home</HeaderLink>
 				<HeaderLink href="/blog">Blog</HeaderLink>
 				<HeaderLink href="/about">About</HeaderLink>
 			</div>
+
 		</div>
 		<div class="right-group">
 			<div class="social-links">
@@ -34,6 +38,19 @@ const { current = '' } = Astro.props;
 		</div>
 	</nav>
 </header>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const button = document.getElementById('hamburger-button');
+		const navLinks = document.getElementById('navLinks'); // ✅ corrected ID
+
+		if (button && navLinks) {
+			button.addEventListener('click', () => {
+				navLinks.classList.toggle('open');
+			});
+		}
+	});
+</script>
 
 <style>
 	header {
@@ -134,11 +151,46 @@ const { current = '' } = Astro.props;
 		filter: drop-shadow(var(--glow));
 	}
 
+	.hamburger {
+		display: none;
+		background: none;
+		border: none;
+		font-size: 1.5em;
+		cursor: pointer;
+		color: var(--text-main);
+	}
+
+	.internal-links.open {
+		display: flex;
+		gap: 1em;
+	}
 
 	@media (max-width: 720px) {
-		.social-links {
+		.hamburger {
+			display: block;
+			background: none;
+			border: none;
+			font-size: 1.5em;
+			cursor: pointer;
+			color: var(--text-main);
+		}
+
+		.internal-links {
 			display: none;
+			flex-direction: column;
+			position: absolute;
+			top: 60px;
+			left: 0;
+			width: 100%;
+			background: var(--background-body);
+			box-shadow: 0 2px 8px rgba(var(--black), 0.1);
+			padding: 1em;
+		}
+
+		.internal-links.open {
+			display: flex;
 		}
 	}
+
 
 </style>
