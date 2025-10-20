@@ -48,6 +48,13 @@ const { current = '' } = Astro.props;
 			button.addEventListener('click', () => {
 				navLinks.classList.toggle('open');
 			});
+
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', () => {
+					navLinks.classList.remove('open');
+				});
+			});
+
 		}
 	});
 </script>
@@ -184,7 +191,8 @@ const { current = '' } = Astro.props;
 			width: 100%;
 			background: var(--background-body);
 			box-shadow: 0 2px 8px rgba(var(--black), 0.1);
-			padding: 1em;
+			padding: 1em 2em;
+			box-sizing: border-box;
 		}
 
 		.internal-links.open {
