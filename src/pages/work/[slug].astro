@@ -1,0 +1,73 @@
+---
+import { getCollection, render } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+type StaticPath = { params: { slug: string }; props: { slug: string } };
+
+export async function getStaticPaths(): Promise<StaticPath[]> {
+	const moduleMap = import.meta.glob('../../content/featured-work/*.{md,mdx}');
+	return Object.keys(moduleMap).map((filePath) => ({
+		params: {
+			slug:
+				filePath
+					.replace(/\\/g, '/')
+					.split('/featured-work/')
+					.pop()
+					?.replace(/\.(md|mdx)$/, '') ?? '',
+		},
+		props: {
+			slug:
+				filePath
+					.replace(/\\/g, '/')
+					.split('/featured-work/')
+					.pop()
+					?.replace(/\.(md|mdx)$/, '') ?? '',
+		},
+	}));
+}
+
+const { slug } = Astro.props as { slug: string };
+
+const entries = await getCollection('featuredWork');
+const project = entries.find((entry) => entry.id === slug) ?? null;
+const notFound = project === null;
+const fallbackTitle = 'Work not found';
+const fallbackDescription = 'The requested work could not be found.';
+
+const rendered = project ? await render(project) : null;
+const Content = rendered?.Content;
+const title = project?.data.title ?? fallbackTitle;
+const description = project?.data.description ?? fallbackDescription;
+const tags = project?.data.tags ?? [];
+const image = project?.data.image;
+const video = project?.data.video;
+const link = project?.data.link;
+---
+
+{!notFound ? (
+	<ProjectLayout {title} {description} {tags} {image} {video} {link}>
+		{/* Replace this placeholder body content with rich MDX inside each file */}
+		{Content && <Content />}
+	</ProjectLayout>
+) : (
+	<html lang="en">
+		<head>
+			<BaseHead title={title} description={description} />
+		</head>
+		<body>
+			<Header />
+			<main>
+				<article style="max-width:720px;margin:2rem auto;padding:1rem;text-align:center;">
+					<h1>{title}</h1>
+					<p style="color:var(--text-secondary,#6b6f72)">⚠️ {description}</p>
+				</article>
+			</main>
+			<Footer />
+		</body>
+	</html>
+)}
+
+

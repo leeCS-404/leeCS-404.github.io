@@ -1,0 +1,128 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	tags: string[];
+	image?: ImageMetadata;
+	video?: string;
+	link?: string;
+}
+
+const { title, description, tags, image, video, link } = Astro.props as Props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 2em 0;
+			}
+			.hero {
+				border-radius: 16px;
+				overflow: hidden;
+				box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+				margin-bottom: 1.5em;
+			}
+			.hero video,
+			.hero img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			article {
+				display: grid;
+				gap: 1.25em;
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			.chip {
+				display: inline-block;
+				padding: 0.2rem 0.6rem;
+				border-radius: 9999px;
+				background: rgba(84, 142, 155, 0.12);
+				color: var(--primary-color, #548e9b);
+			}
+			.meta {
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+			.meta h1 {
+				margin: 0;
+				font-size: 2.2rem;
+			}
+			.meta p {
+				margin: 0;
+				color: var(--text-secondary, #6b6f72);
+			}
+			.link-btn {
+				display: inline-block;
+				padding: 0.6rem 1rem;
+				border-radius: 10px;
+				background: var(--primary-color, #548e9b);
+				color: #fff;
+				text-decoration: none;
+				width: fit-content;
+				transition: transform 200ms ease, box-shadow 200ms ease;
+			}
+			.link-btn:hover,
+			.link-btn:focus-visible {
+				transform: translateY(-2px);
+				box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+			}
+			.content {
+				display: grid;
+				gap: 1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero">
+					{
+						video ? (
+							<video controls preload="metadata" src={video}></video>
+						) : image ? (
+							<Image src={image} width={1200} height={630} alt={title} />
+						) : null
+					}
+				</div>
+				<div class="meta">
+					<div class="tags">
+						{tags.map((tag) => (
+							<span class="chip">{tag}</span>
+						))}
+					</div>
+					<h1>{title}</h1>
+					<p>{description}</p>
+					{link && (
+						<a class="link-btn" href={link} target="_blank" rel="noopener noreferrer">
+							Visit Site
+						</a>
+					)}
+				</div>
+				<div class="content">
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
