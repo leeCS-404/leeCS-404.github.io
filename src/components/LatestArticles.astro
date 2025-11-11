@@ -1,0 +1,221 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	limit?: number;
+	title?: string;
+	viewAllHref?: string;
+}
+
+const {
+	limit = 3,
+	title = 'Latest Articles',
+	viewAllHref = '/blog',
+} = Astro.props as Props;
+
+// Load and sort blog posts by pubDate (desc), then take the latest N
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, limit);
+---
+
+<section aria-labelledby="latest-articles-heading" class="latest-articles">
+	<h2 id="latest-articles-heading" class="section-title">{title}</h2>
+
+	<ul class="card-grid" role="list">
+		{
+			posts.map((post) => {
+				const href = `/blog/${post.id}/`;
+				const hasImage = Boolean(post.data.heroImage);
+				const tags = (post.data.tags ?? post.data.tag ?? post.data.category ?? []) as
+					| string[]
+					| string;
+				const tagsArray = Array.isArray(tags) ? tags : tags ? [tags] : [];
+				const primaryTag = tagsArray[0];
+
+				return (
+					<li class="card" role="listitem">
+						<a href={href} class="card-link" aria-label={`Read: ${post.data.title}`}>
+							{hasImage && (
+								<div class="thumb-wrap" aria-hidden="true">
+									<Image
+										class="thumb"
+										width={800}
+										height={420}
+										src={post.data.heroImage}
+										alt=""
+										loading="lazy"
+									/>
+								</div>
+							)}
+
+							<div class="meta">
+								<p class="date"><FormattedDate date={post.data.pubDate} /></p>
+								{primaryTag && <span class="chip" aria-label="Post tag">{primaryTag}</span>}
+							</div>
+
+							<h3 class="title">{post.data.title}</h3>
+							{post.data.description && (
+								<p class="excerpt">{post.data.description}</p>
+							)}
+
+							<span class="read-more" aria-hidden="true">Read More →</span>
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+
+	<div class="actions">
+		<a href={viewAllHref} class="view-all" aria-label="View all articles">View All Articles</a>
+	</div>
+</section>
+
+<style>
+	.latest-articles {
+		margin-top: 2.5rem;
+		margin-bottom: 2.5rem;
+	}
+	.section-title {
+		margin-bottom: 1.25rem;
+	}
+
+	/* Grid: 1 col mobile, 2 cols tablet, 3 cols desktop */
+	.card-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	@media (min-width: 640px) {
+		.card-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (min-width: 1024px) {
+		.card-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.card {
+		border-radius: 12px;
+		background: var(--background-card, var(--background-body));
+		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+		transition: transform 200ms ease, box-shadow 200ms ease, background 300ms ease, color 300ms ease;
+		overflow: hidden;
+	}
+	/* Hover lift + shadow that adapts to theme */
+	.card:hover,
+	.card:focus-within {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12), 0 6px 10px rgba(0, 0, 0, 0.06);
+	}
+	.theme-dark .card:hover,
+	.theme-dark .card:focus-within {
+		box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 6px 10px rgba(0, 0, 0, 0.3);
+	}
+
+	.card-link {
+		display: grid;
+		grid-template-rows: auto auto auto 1fr auto;
+		gap: 0.5rem;
+		padding: 0.75rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.thumb-wrap {
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.thumb {
+		display: block;
+		width: 100%;
+		height: auto;
+		filter: brightness(0.98);
+		transition: transform 250ms ease, filter 250ms ease;
+	}
+	.card:hover .thumb,
+	.card:focus-within .thumb {
+		transform: scale(1.02);
+		filter: brightness(1.05);
+	}
+	.theme-dark .card:hover .thumb,
+	.theme-dark .card:focus-within .thumb {
+		filter: brightness(1.15);
+	}
+
+	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 0.25rem;
+	}
+	.date {
+		margin: 0;
+		color: var(--text-secondary, #6b6f72);
+		font-size: 0.95rem;
+	}
+	.chip {
+		display: inline-block;
+		padding: 0.15rem 0.5rem;
+		font-size: 0.8rem;
+		border-radius: 9999px;
+		background: rgba(84, 142, 155, 0.12);
+		color: var(--primary-color, #548e9b);
+		white-space: nowrap;
+	}
+
+	.title {
+		margin: 0.25rem 0 0 0;
+		line-height: 1.25;
+		font-size: 1.1rem;
+		color: var(--text-main, #111);
+	}
+	.excerpt {
+		margin: 0.25rem 0 0.5rem 0;
+		color: var(--text-secondary, #6b6f72);
+	}
+	.read-more {
+		margin-top: 0.25rem;
+		color: var(--primary-color, #548e9b);
+		font-weight: 600;
+		transition: color 200ms ease;
+	}
+	.card:hover .read-more,
+	.card:focus-within .read-more {
+		color: var(--primary-color, #3b6f7b);
+	}
+
+	.actions {
+		display: flex;
+		justify-content: center;
+		margin-top: 1.25rem;
+	}
+	.view-all {
+		display: inline-block;
+		padding: 0.6rem 1rem;
+		border-radius: 10px;
+		text-decoration: none;
+		background: rgba(84, 142, 155, 0.12);
+		color: var(--primary-color, #548e9b);
+		transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+	}
+	.view-all:hover,
+	.view-all:focus-visible {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+	}
+	.theme-dark .view-all:hover,
+	.theme-dark .view-all:focus-visible {
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.32);
+	}
+</style>
+
+

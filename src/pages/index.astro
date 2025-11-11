@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import LatestArticles from '../components/LatestArticles.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -17,6 +18,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			<p>
 				I'm a computer science student, and this is where I keep track of what I'm learning. You’ll find my projects, skills, notes, and other things I’ve picked up along the way. It's mostly for my own reference, but feel free to take a look around!
 			</p>
+
+			<LatestArticles />
 		</main>
 		<Footer />
 	</body>
