@@ -195,5 +195,11 @@ hr {
 	p{
 		font-size: 0.9em;
 	}
+	body {
+		margin-left: 0.2em;
+		margin-right: 0.2em;
+
+		padding: 0 0.2em;
+	}
 }
 
