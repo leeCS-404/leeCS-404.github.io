@@ -17,11 +17,6 @@ const featuredProjects = await getCollection('featuredWork');
 	<body>
 		<Header />
 		<main>
-			<h1>Featured Work</h1>
-			<p>
-				Update the project entries inside <code>src/content/featured-work/</code> to curate this gallery.
-			</p>
-
 			<FeaturedWork projects={featuredProjects} showSeeAll={false} client:load />
 		</main>
 		<Footer />
