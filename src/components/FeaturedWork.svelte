@@ -40,7 +40,7 @@
 
 <section aria-labelledby="featured-work-heading" class="featured-work">
 	<header class="header">
-		<h2 id="featured-work-heading" class="title">Featured Work ↓</h2>
+		<h2 id="featured-work-heading" class="title">Featured Work</h2>
 		<p class="subtitle">
 			I create innovative and purposeful designs that not only capture attention but also drive meaningful results.
 		</p>

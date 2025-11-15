@@ -46,7 +46,7 @@ html {
 	font-display: swap;
 }
 body {
-  font-family: "Avenir", sans-serif;
+  font-family: "Atkinson", sans-serif;
   margin: 0;
   padding: 0;
   text-align: left;
@@ -181,25 +181,55 @@ hr {
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
+		margin-left: 1rem;
+		margin-right: 1rem;
 	}
 	main {
 		padding: 1em;
 	}
+	h1 {
+		font-size: 2em;
+	}
+	h2 {
+		font-size: 1.8em;
+	}
+	h3 {
+		font-size: 1.6em;
+	}
+	h4 {
+		font-size: 1.4em;
+	}
+	h5 {
+		font-size: 1.2em;
+	}
+	h6 {
+		font-size: 1em;
+	}
 }
 
-@media (max-width: 720px) {
-	h1, h2, h3, h4, h5, h6 {
-		font-size: 0.85em;
-	}
-	
-	p{
-		font-size: 0.9em;
-	}
+@media (max-width: 640px) {
 	body {
-		margin-left: 0.2em;
-		margin-right: 0.2em;
-
-		padding: 0 0.2em;
+		font-size: 16px; /* Base font size for mobile */
+	}
+	h1 {
+		font-size: 2.25rem;
+	}
+	h2 {
+		font-size: 2rem;
+	}
+	h3 {
+		font-size: 1.75rem;
+	}
+	h4 {
+		font-size: 1.5rem;
+	}
+	h5 {
+		font-size: 1.25rem;
+	}
+	h6 {
+		font-size: 1.1rem;
+	}
+	strong, b {
+		font-weight: 700;
 	}
 }
-
