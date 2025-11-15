@@ -1,6 +1,29 @@
 ---
 import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
 import Layout from '../layouts/BlogPost.astro';
+
+const resources = [
+  {
+    title: 'picoCTF',
+    description: 'A beginner-friendly cybersecurity competition that teaches hacking skills through fun, game-based challenges..',
+    href: 'https://picoctf.org/',
+  },
+  {
+    title: 'Cisco Networking Academy',
+    description: 'online learning platform that offers professional training in networking, cybersecurity, and IT fundamentals.',
+    href: 'https://www.netacad.com/',
+  },
+  {
+    title: 'CS50 by Harvard',
+    description: 'An introduction to the intellectual enterprises of computer science and the art of programming.',
+    href: 'https://www.youtube.com/playlist?list=PLhQjrBD2T382_DPdAn4C5VWkdlpCAp3T2',
+  },
+  {
+    title: 'freeCodeCamp',
+    description: 'A non-profit organization that consists of an interactive learning web platform and online community.',
+    href: 'https://www.freecodecamp.org/',
+  },
+];
 ---
 
 <Layout
@@ -28,8 +51,8 @@ import Layout from '../layouts/BlogPost.astro';
       engineering practices.
     </p>
     <ul>
-      <li>Programming (Python, C++,C#)</li>
-      <li>Web Development (Astro, React, html, CSS)</li>
+      <li>Programming (Python, C++, C#)</li>
+      <li>Web Development (Astro, React, HTML, CSS)</li>
       <li>Game Development (Unity)</li>
       <li>Exploring new tools and frameworks</li>
     </ul>
@@ -44,4 +67,153 @@ import Layout from '../layouts/BlogPost.astro';
       enjoyable to use.
     </p>
   </section>
+
+  <section class="contact-section">
+    <h2>Contact</h2>
+    <p>
+      The best way to reach me is via email. You can also find me on GitHub and LinkedIn.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:chungsunlee06@outlook.com" class="email-link">chungsunlee06@outlook.com</a>
+      <div class="social-icons">
+        <a href="https://github.com/chungsunlee" target="_blank" rel="noopener noreferrer" aria-label="Go to my GitHub">
+          <svg viewBox="0 0 16 16" aria-hidden="true" width="28" height="28">
+            <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/chung-sun-lee-b1b490396/" target="_blank" rel="noopener noreferrer" aria-label="Go to my LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28">
+            <path fill="currentColor" d="M19.75 3H4.25A1.25 1.25 0 0 0 3 4.25v15.5A1.25 1.25 0 0 0 4.25 21h15.5A1.25 1.25 0 0 0 21 19.75V4.25A1.25 1.25 0 0 0 19.75 3zM8.5 18.5h-3v-9h3v9zM7 8.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zM18.5 18.5h-3v-4.62c0-1.4-.5-2.38-1.75-2.38-1.25 0-1.75.84-1.75 2.38V18.5h-3v-9h3v1.38h.04c.4-.75 1.38-1.5 3.21-1.5 3.44 0 4 2.25 4 5.12v3.99z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="resources-section">
+    <h2>Resources I Use</h2>
+    <p>
+      Here are some of the websites, books, and courses that I rely on for learning and reference.
+    </p>
+    <div class="resource-grid">
+      {
+        resources.map((resource) => (
+          <div class="resource-card">
+            <h3>{resource.title}</h3>
+            <p>{resource.description}</p>
+            {resource.href && (
+              <a href={resource.href} class="resource-link" target="_blank" rel="noopener noreferrer">
+                Learn More &rarr;
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .contact-section {
+    margin-top: 3em;
+    padding: 2em;
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .theme-dark .contact-section {
+    background: #2a2b2c;
+    border-color: #444;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    margin-top: 1em;
+  }
+
+  .email-link {
+    font-size: 1.1em;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .email-link:hover {
+    text-decoration: underline;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1.5em;
+  }
+
+  .social-icons a {
+    color: var(--text-main);
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  .social-icons a:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+  }
+
+  .resources-section {
+    margin-top: 3em;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5em;
+  }
+
+  .resource-card {
+    background: var(--background-card, #f9f9f9);
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .theme-dark .resource-card {
+    background: #2a2b2c;
+    border-color: #444;
+  }
+
+  .resource-card h3 {
+    font-size: 1.25em;
+    margin: 0 0 0.5em 0;
+    color: var(--text-main);
+  }
+
+  .resource-card p {
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+  }
+
+  .resource-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+    align-self: flex-start;
+  }
+
+  .resource-link:hover {
+    text-decoration: underline;
+  }
+</style>
