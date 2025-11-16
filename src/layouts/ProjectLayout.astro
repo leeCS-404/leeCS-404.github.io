@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import BaseHead from '../components/BaseHead.astro';
+import BackButton from '../components/BackButton.svelte';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 
@@ -93,6 +94,7 @@ const { title, description, tags, image, video, link } = Astro.props as Props;
 	<body>
 		<Header />
 		<main>
+			<BackButton client:load />
 			<article>
 				<div class="hero">
 					{
@@ -125,4 +127,3 @@ const { title, description, tags, image, video, link } = Astro.props as Props;
 		<Footer />
 	</body>
 </html>
-

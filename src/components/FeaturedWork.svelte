@@ -26,12 +26,16 @@
 		};
 	}
 
+	const getSlug = (item: FeaturedWorkEntry) => item.id.split('/').pop()?.split('.')[0];
+
 	const byOrder = (entry: FeaturedWorkEntry) =>
 		entry.data.order ?? Number.MAX_SAFE_INTEGER;
 
 	$: sorted = [...projects].sort((a, b) => {
 		const diff = byOrder(a) - byOrder(b);
-		return diff === 0 ? a.slug.localeCompare(b.slug) : diff;
+		const slugA = getSlug(a) ?? '';
+		const slugB = getSlug(b) ?? '';
+		return diff === 0 ? slugA.localeCompare(slugB) : diff;
 	});
 	$: list = limit ? sorted.slice(0, limit) : sorted;
 	$: firstThree = list.slice(0, 3);
@@ -48,8 +52,9 @@
 
 	<ul class="stack" role="list">
 		{#each firstThree as project (project.id)}
+			{@const slug = getSlug(project)}
 			<li class="feature" role="listitem" use:inview>
-				<a class="feature-link" href={`${basePath}/${project.slug ?? project.id}/`}>
+				<a class="feature-link" href={`${basePath}/${slug}/`}>
 					<div class="feature-inner">
 						<div class="media">
 							{#if project.data.video}
@@ -86,8 +91,9 @@
 	{#if remaining.length}
 		<ul class="grid-2" role="list">
 			{#each remaining as project (project.id)}
+				{@const slug = getSlug(project)}
 				<li class="feature small" role="listitem" use:inview>
-					<a class="feature-link" href={`${basePath}/${project.slug ?? project.id}/`}>
+					<a class="feature-link" href={`${basePath}/${slug}/`}>
 						<div class="feature-inner">
 							<div class="media">
 								{#if project.data.video}
