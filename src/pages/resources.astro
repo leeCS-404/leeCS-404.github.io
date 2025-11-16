@@ -1,0 +1,71 @@
+--- 
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const resources = [
+  {
+    title: 'picoCTF',
+    description: 'A free computer security education program with original content built on a capture-the-flag framework. Learn and practice cybersecurity skills.',
+    href: 'https://picoctf.org',
+  },
+  {
+    title: 'Cisco Networking Academy',
+    description: 'Offers IT courses, certifications, and career opportunities. A great resource for learning networking, cybersecurity, and more.',
+    href: 'https://www.netacad.com',
+  },
+  {
+    title: 'CS50 by Harvard',
+    description: 'Harvard University\'s introduction to the intellectual enterprises of computer science and the art of programming. A foundational course.',
+    href: 'https://cs50.harvard.edu',
+  },
+  {
+    title: 'freeCodeCamp',
+    description: 'A non-profit organization that consists of an interactive learning web platform, an online community forum, and thousands of articles.',
+    href: 'https://www.freecodecamp.org',
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+    <BaseHead title=`Resources - ${SITE_TITLE}` description="A collection of valuable resources for learning and development." />
+    <style>
+        main {
+            padding: 2rem 1rem;
+        }
+    </style>
+</head>
+<body>
+    <Header />
+    <main>
+        <section class="text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Resources I Use</h1>
+            <p class="max-w-2xl mx-auto mb-12">
+                Here are some of the valuable resources and platforms I use for learning, practice, and development in computer science and cybersecurity.
+            </p>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {resources.map(resource => (
+                <a href={resource.href} target="_blank" rel="noopener noreferrer" class="group block rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-100 dark:bg-neutral-800">
+                    <div class="h-full rounded-lg p-6 flex flex-col justify-between transform transition-transform duration-300 group-hover:-translate-y-1">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">{resource.title}</h3>
+                            <p class="text-neutral-700 dark:text-neutral-300 mb-4">{resource.description}</p>
+                        </div>
+                        <div class="mt-auto">
+                            <span class="text-blue-600 dark:text-blue-400 font-semibold group-hover:underline">
+                                Learn More &rarr;
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            ))}
+        </section>
+    </main>
+    <Footer />
+</body>
+</html>

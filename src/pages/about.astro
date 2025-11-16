@@ -2,28 +2,7 @@
 import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
 import Layout from '../layouts/BlogPost.astro';
 
-const resources = [
-  {
-    title: 'picoCTF',
-    description: 'A beginner-friendly cybersecurity competition that teaches hacking skills through fun, game-based challenges..',
-    href: 'https://picoctf.org/',
-  },
-  {
-    title: 'Cisco Networking Academy',
-    description: 'online learning platform that offers professional training in networking, cybersecurity, and IT fundamentals.',
-    href: 'https://www.netacad.com/',
-  },
-  {
-    title: 'CS50 by Harvard',
-    description: 'An introduction to the intellectual enterprises of computer science and the art of programming.',
-    href: 'https://www.youtube.com/playlist?list=PLhQjrBD2T382_DPdAn4C5VWkdlpCAp3T2',
-  },
-  {
-    title: 'freeCodeCamp',
-    description: 'A non-profit organization that consists of an interactive learning web platform and online community.',
-    href: 'https://www.freecodecamp.org/',
-  },
-];
+
 ---
 
 <Layout
@@ -50,14 +29,14 @@ const resources = [
       continuously improving my skills in core computer science topics, algorithms, and software
       engineering practices.
     </p>
-    <ul>
+    <ul class="list-disc pl-6">
       <li>Programming (Python, C++, C#)</li>
       <li>Web Development (Astro, React, HTML, CSS)</li>
       <li>Game Development (Unity)</li>
       <li>Exploring new tools and frameworks</li>
     </ul>
   </section>
-
+  <br/>
   <section>
     <h2>Current Focus</h2>
     <p>
@@ -70,35 +49,22 @@ const resources = [
 
   
 
-  <section class="resources-section">
-    <h2>Resources I Use</h2>
-    <p>
-      Here are some of the websites, books, and courses that I rely on for learning and reference.
-    </p>
-    <div class="resource-grid">
-      {
-        resources.map((resource) => (
-          <div class="resource-card">
-            <h3>{resource.title}</h3>
-            <p>{resource.description}</p>
-            {resource.href && (
-              <a href={resource.href} class="resource-link" target="_blank" rel="noopener noreferrer">
-                Learn More &rarr;
-              </a>
-            )}
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
   <section class="contact-section">
-    <h2>Contact</h2>
-    <p>
-      The best way to reach me is via email. You can also find me on GitHub and LinkedIn.
-    </p>
-    <div class="contact-links">
-      <a href="mailto:chungsunlee06@outlook.com" class="email-link">chungsunlee06@outlook.com</a>
+    <h2>Let’s Connect</h2>
+    <p>Reach out to me via email or on social media.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a href="mailto:chungsunlee06@outlook.com">chungsunlee06@outlook.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <a href="https://github.com/chungsunlee" target="_blank" rel="noopener noreferrer">chungsunlee</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <a href="https://linkedin.com/in/chungsunlee" target="_blank" rel="noopener noreferrer">chungsunlee</a>
+      </div>
     </div>
   </section>
 </Layout>
@@ -106,13 +72,47 @@ const resources = [
 <style>
   .contact-section {
     margin-top: 3em;
-    padding: 2em;
-    background: var(--background-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
     text-align: center;
   }
 
+  .contact-section h2 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+  }
+
+  .contact-section p {
+    margin-bottom: 2em;
+    color: var(--text-secondary);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .contact-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+  }
+
+  .contact-label {
+    font-weight: bold;
+    color: var(--text-secondary);
+  }
+
+  .contact-item a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
   .theme-dark .contact-section {
     background: #2a2b2c;
     border-color: #444;
