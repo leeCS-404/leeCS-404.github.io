@@ -5,8 +5,6 @@ pubDate: 'Nov 26 2025'
 heroImage: '../../assets/Encrypt.jpg'
 ---
 
-# LockTalk Project: A Learning Guide
-
 This blog aims to provide insights into the LockTalk project's architecture, the thinking process behind its development (and repair), and a structured path for you to learn its codebase.
 
 ## 1. Project Concept and Architecture
@@ -19,6 +17,8 @@ LockTalk is envisioned as a secure, local-network messaging application. It cons
 The communication between the frontend and backend happens via:
 *   **HTTP REST API:** For actions like peer discovery, handshake initiation, and message history.
 *   **WebSockets:** For real-time chat messages.
+
+
 
 ## 2. Thinking Path and Method Used
 
@@ -58,6 +58,8 @@ To effectively understand and work with the LockTalk codebase, follow this recom
 4.  **`frontend/tailwind.config.ts` & `frontend/index.css`:** Familiarize yourself with the Tailwind CSS configuration and the global styles.
 5.  **`frontend/vite.config.ts`:** Understand how the Vite development server is configured, especially the proxy settings for the backend API and WebSocket.
 
+
+
 ### Phase 2: Core Frontend Components & Pages
 
 1.  **`frontend/src/components/core/Header.tsx`:** A good example of a foundational UI component, showing dark mode toggle and general header structure.
@@ -66,6 +68,8 @@ To effectively understand and work with the LockTalk codebase, follow this recom
 4.  **`frontend/src/components/core/DeviceMockup.tsx`:** See how a complex visual component is built with nested `div`s and Tailwind for styling.
 5.  **`frontend/src/pages/DashboardPage.tsx`:** This is the main application view. Understand its two-column layout (`PeerList` and `ChatPane`).
 
+
+
 ### Phase 3: Frontend-Backend Interaction & Logic
 
 1.  **`frontend/src/types/index.ts`:** Crucial for understanding the data structures (interfaces) exchanged between frontend and backend.
@@ -73,6 +77,8 @@ To effectively understand and work with the LockTalk codebase, follow this recom
 3.  **`frontend/src/services/ws.ts`:** Understand the WebSocket client implementation, including connection, reconnection logic, and message handling.
 4.  **`frontend/src/hooks/usePeers.ts`:** See how `api.ts` is used to fetch and manage peer data.
 5.  **`frontend/src/hooks/useMessages.ts`:** Understand how `ws.ts` is used to send and receive messages, and how message history is managed.
+
+
 
 ### Phase 4: Backend Deep Dive (FastAPI)
 
@@ -86,6 +92,8 @@ To effectively understand and work with the LockTalk codebase, follow this recom
 2.  **`run.py`:** Understand how this script uses `uvicorn` to start the FastAPI application.
 3.  **`requirements.txt`:** Lists all Python dependencies.
 
+
+
 ### Phase 5: Bundling (PyInstaller)
 
 1.  **`main_bundle.py`:** This is the custom entry point for the bundled executable.
@@ -93,4 +101,3 @@ To effectively understand and work with the LockTalk codebase, follow this recom
     *   Observe how `webbrowser.open_new_tab` is used to automatically open the browser.
     *   Note the `sys.path.insert` for module discovery within the bundle.
 
-By following this path, you'll gain a comprehensive understanding of the LockTalk project from UI to backend logic and its packaging for distribution. Good luck!
