@@ -87,6 +87,8 @@ const { title, description, tags, image, video, link } = Astro.props as Props;
 			.content {
 				display: grid;
 				gap: 1rem;
+				max-width: min(80ch, calc(100% - 2em));
+				margin: auto;
 			}
 		</style>
 	</head>
