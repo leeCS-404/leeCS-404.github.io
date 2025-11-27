@@ -1,3 +1,9 @@
+---
+title: 'LockTalk Project: A Learning Guide'
+description: 'A structured guide to understanding the architecture, development process, and learning path for the LockTalk secure messaging application.'
+pubDate: 'Nov 28 2025'
+heroImage: '../../assets/Encrypt.jpg'
+---
 # Deep Project Analysis: P2P Encrypted Chat Application
 
 Based on the folder structure, this is a **peer-to-peer encrypted messaging application** featuring a Python backend and a React/TypeScript frontend.
